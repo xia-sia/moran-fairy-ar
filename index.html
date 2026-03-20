@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>사월의 부귀, 개화</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --peach:    #F2E0D0;
+      --peach-dk: #D4B49A;
+      --pink:     #E07A7A;
+      --orange:   #E0933A;
+      --ivory:    #C8A96E;
+      --brown:    #7A5230;
+      --ink:      #2C1A0E;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: var(--peach);
+      font-family: 'Noto Serif KR', serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 20%, rgba(224,121,122,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 75%, rgba(200,169,110,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 55% 5%,  rgba(224,147,58,0.08)  0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center;
+    }
+
+    /* 상단 장식 */
+    .top-ornament {
+      padding: 2rem 0 0;
+      animation: fadeIn 1.4s ease both;
+    }
+    .top-ornament svg { opacity: 0.35; }
+
+    /* 작가 사진 */
+    .artist-wrap {
+      position: relative;
+      width: min(56vw, 220px);
+      margin-top: 1.8rem;
+      animation: fadeIn 1.6s 0.2s ease both;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .artist-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px var(--peach-dk),
+        0 0 0 5px var(--peach),
+        0 0 0 6px var(--peach-dk);
+    }
+
+    .artist-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(6%) contrast(0.97) brightness(1.02);
+    }
+
+    .artist-badge {
+      margin-top: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+    .artist-badge .name-ko {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.2em;
+    }
+    .artist-badge .name-role {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: var(--brown);
+      letter-spacing: 0.12em;
+      margin-top: 0.15rem;
+    }
+
+    /* 꽃 점 */
+    .flowers {
+      display: flex; gap: 1.2rem;
+      margin-top: 2rem;
+      animation: fadeIn 1.6s 0.5s ease both;
+    }
+    .flower {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .flower.pink   { background: var(--pink);   box-shadow: 0 0 6px var(--pink);   }
+    .flower.orange { background: var(--orange);  box-shadow: 0 0 6px var(--orange);  }
+    .flower.ivory  { background: var(--ivory);   box-shadow: 0 0 6px var(--ivory);   }
+
+    /* 제목 */
+    .title-block {
+      text-align: center;
+      margin-top: 1.4rem;
+      padding: 0 2rem;
+      animation: fadeIn 1.6s 0.6s ease both;
+    }
+    .title-ko {
+      font-size: clamp(1.5rem, 5.5vw, 2.1rem);
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.18em;
+      line-height: 1.5;
+    }
+    .title-en {
+      font-size: clamp(0.62rem, 2.4vw, 0.76rem);
+      font-weight: 300;
+      color: var(--brown);
+      letter-spacing: 0.26em;
+      margin-top: 0.5rem;
+    }
+
+    /* 구분선 */
+    .divider {
+      display: flex; align-items: center; gap: 0.7rem;
+      margin: 1.6rem 0;
+      width: min(68vw, 280px);
+      animation: fadeIn 1.6s 0.8s ease both;
+    }
+    .divider::before {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--peach-dk));
+    }
+    .divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to left, transparent, var(--peach-dk));
+    }
+    .divider-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--peach-dk); }
+
+    /* 설명 */
+    .desc {
+      font-size: clamp(0.78rem, 3vw, 0.9rem);
+      font-weight: 300;
+      color: var(--brown);
+      text-align: center;
+      line-height: 2.2;
+      letter-spacing: 0.06em;
+      padding: 0 2rem;
+      animation: fadeIn 1.6s 1.0s ease both;
+    }
+
+    /* 시작 버튼 */
+    .btn-start {
+      margin: 2rem 0 3.5rem;
+      padding: 0.9rem 2.8rem;
+      background: transparent;
+      border: 1px solid var(--brown);
+      color: var(--ink);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: color 0.4s;
+      animation: fadeIn 1.6s 1.2s ease both;
+    }
+    .btn-start::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--brown);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .btn-start:hover::before { transform: scaleX(1); }
+    .btn-start:hover { color: var(--peach); }
+    .btn-start span { position: relative; z-index: 1; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top-ornament">
+    <svg width="80" height="20" viewBox="0 0 80 20">
+      <line x1="0" y1="10" x2="30" y2="10" stroke="#D4B49A" stroke-width="0.8"/>
+      <circle cx="40" cy="10" r="3" fill="none" stroke="#D4B49A" stroke-width="0.8"/>
+      <line x1="50" y1="10" x2="80" y2="10" stroke="#D4B49A" stroke-width="0.8"/>
+    </svg>
+  </div>
+
+  <div class="artist-wrap">
+    <div class="artist-frame">
+      <img class="artist-img" src="assets/artist.jpg" alt="김시아 작가" />
+    </div>
+    <div class="artist-badge">
+      <span class="name-ko">김시아</span>
+      <span class="name-role">민화 작가</span>
+    </div>
+  </div>
+
+  <div class="flowers">
+    <div class="flower pink"></div>
+    <div class="flower orange"></div>
+    <div class="flower ivory"></div>
+  </div>
+
+  <div class="title-block">
+    <h1 class="title-ko">사월의 부귀, 개화</h1>
+    <p class="title-en">April's Wealth and Nobility, Blooming</p>
+  </div>
+
+  <div class="divider">
+    <span class="divider-dot"></span>
+    <span class="divider-dot"></span>
+    <span class="divider-dot"></span>
+  </div>
+
+  <p class="desc">
+    민화 속 세 모란에서<br/>
+    요정이 깨어납니다<br/>
+    그들을 찾아 잡아보세요
+  </p>
+
+  <button class="btn-start" onclick="window.location.href='ar.html'">
+    <span>시작하기</span>
+  </button>
+
+</div>
+</body>
+</html>
