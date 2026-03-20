@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>사월의 부귀, 개화 — AR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/ar.css" />
+</head>
+<body>
+
+  <!-- ── MindAR 컨테이너 ── -->
+  <div id="ar-container"></div>
+
+  <!-- ── UI 오버레이 ── -->
+  <div id="ui-overlay">
+
+    <!-- Phase: SCANNING -->
+    <div id="ui-scanning" class="ui-phase active">
+      <div class="scan-frame">
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+      </div>
+      <p class="scan-hint">민화에 카메라를 비춰주세요</p>
+      <div class="scan-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Phase: DETECTED -->
+    <div id="ui-detected" class="ui-phase">
+      <p class="detect-msg">요정이 깨어납니다...</p>
+    </div>
+
+    <!-- Phase: HUNTING -->
+    <div id="ui-hunting" class="ui-phase">
+      <!-- 방향 힌트 (요정이 화면 밖에 있을 때) -->
+      <div id="hint-0" class="fairy-hint" data-fairy="0">
+        <div class="hint-arrow"></div>
+        <span class="hint-dist"></span>
+      </div>
+      <div id="hint-1" class="fairy-hint" data-fairy="1">
+        <div class="hint-arrow"></div>
+        <span class="hint-dist"></span>
+      </div>
+      <div id="hint-2" class="fairy-hint" data-fairy="2">
+        <div class="hint-arrow"></div>
+        <span class="hint-dist"></span>
+      </div>
+
+      <!-- 잡힌 요정 카운터 -->
+      <div id="catch-counter">
+        <span id="dot-0" class="catch-dot" data-fairy="0"></span>
+        <span id="dot-1" class="catch-dot" data-fairy="1"></span>
+        <span id="dot-2" class="catch-dot" data-fairy="2"></span>
+      </div>
+
+      <p class="hunt-hint">요정을 찾아 직접 터치하세요</p>
+    </div>
+
+    <!-- Phase: COMPLETE -->
+    <div id="ui-complete" class="ui-phase">
+      <div class="complete-inner">
+        <div class="complete-flowers">
+          <span class="cf pink"></span>
+          <span class="cf orange"></span>
+          <span class="cf ivory"></span>
+        </div>
+        <p class="complete-words">
+          <span class="cw" id="cw-0">부귀</span>
+          <span class="cw-sep">·</span>
+          <span class="cw" id="cw-1">영화</span>
+          <span class="cw-sep">·</span>
+          <span class="cw" id="cw-2">사랑</span>
+        </p>
+        <p class="complete-sub">모든 요정을 잡았습니다</p>
+        <button class="btn-restart" onclick="location.href='index.html'">처음으로</button>
+      </div>
+    </div>
+
+    <!-- 텍스트 이펙트 레이어 -->
+    <div id="text-effect-layer"></div>
+
+  </div>
+
+  <!-- ── 라이브러리 ── -->
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"></script>
+  <script src="js/fairy-ar.js"></script>
+</body>
+</html>
